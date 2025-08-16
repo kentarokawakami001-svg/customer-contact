@@ -14,6 +14,26 @@ try:
 except Exception:
     pass
 # --- ここまで ---
+# 必須キーが無ければ画面表示して停止
+REQUIRED = ["OPENAI_API_KEY", "SERPAPI_API_KEY", "SLACK_USER_TOKEN"]
+missing = [k for k in REQUIRED if not os.getenv(k)]
+if missing:
+    st.error("起動に必要なキーが設定されていません: " + ", ".join(missing))
+    st.stop()
+
+# CSV の存在と UTF-8 をチェック
+from pathlib import Path
+csv_path = Path("data/slack/従業員情報.csv")
+if not csv_path.exists():
+    st.error(f"CSV が見つかりません: {csv_path}（data/slack 配下にあるか確認）")
+    st.stop()
+try:
+    # 先頭数文字だけ読む（重くしないため）
+    _ = csv_path.open("r", encoding="utf-8").read(1)
+except UnicodeDecodeError:
+    st.error("CSV が UTF-8 ではありません。VS Codeで UTF-8 に変換して再 push してください。")
+    st.stop()
+
 # （この下に他の import を置く）
 # from initialize import ...   ← これは上のブロックの後に書く
 
