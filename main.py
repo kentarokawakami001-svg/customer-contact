@@ -5,22 +5,17 @@
 ############################################################
 # ライブラリの読み込み
 ############################################################
-# --- Secrets -> 環境変数 橋渡し（最優先で実行）---
+# --- Secrets -> 環境変数（最優先で実行） ---
 import os
 import streamlit as st
-
-# Cloud/ローカル問わず、Secretsがあれば環境変数へ流し込む
 try:
     for k, v in st.secrets.items():
         os.environ.setdefault(k, str(v))
 except Exception:
-    # ローカルで st.secrets が無い時もここを通るので安全
     pass
 # --- ここまで ---
-
 # （この下に他の import を置く）
 # from initialize import ...   ← これは上のブロックの後に書く
-
 
 from dotenv import load_dotenv
 import logging
