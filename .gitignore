@@ -180,3 +180,6 @@ logs/
 
 # 公開リポジトリでSlackメンバーID等の個人情報を守りたい場合
 data/slack/従業員情報.csv
+
+# local vector DB
+.db/
