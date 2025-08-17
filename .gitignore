@@ -183,3 +183,6 @@ data/slack/従業員情報.csv
 
 # local vector DB
 .db/
+
+!data/slack/
+!data/slack/従業員情報.csv
