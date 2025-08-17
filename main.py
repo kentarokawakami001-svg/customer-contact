@@ -8,6 +8,8 @@
 # --- Secrets -> 環境変数（最優先で実行） ---
 import os
 import streamlit as st
+from pathlib import Path
+
 try:
     for k, v in st.secrets.items():
         os.environ.setdefault(k, str(v))
@@ -22,7 +24,6 @@ if missing:
     st.stop()
 
 # CSV の存在と UTF-8 をチェック
-from pathlib import Path
 csv_path = Path("data/slack/従業員情報.csv")
 if not csv_path.exists():
     st.error(f"CSV が見つかりません: {csv_path}（data/slack 配下にあるか確認）")
